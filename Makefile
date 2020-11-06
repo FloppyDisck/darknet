@@ -1,11 +1,11 @@
-GPU=0
-CUDNN=0
-CUDNN_HALF=0
-OPENCV=0
+GPU=1
+CUDNN=1
+CUDNN_HALF=1
+OPENCV=1
 AVX=0
 OPENMP=0
-LIBSO=0
-ZED_CAMERA=0
+LIBSO=1
+ZED_CAMERA=1
 ZED_CAMERA_v2_8=0
 
 # set GPU=1 and CUDNN=1 to speedup on GPU
@@ -14,8 +14,13 @@ ZED_CAMERA_v2_8=0
 # set ZED_CAMERA=1 to enable ZED SDK 3.0 and above
 # set ZED_CAMERA_v2_8=1 to enable ZED SDK 2.X
 
-USE_CPP=0
-DEBUG=0
+USE_CPP=1
+DEBUG=1
+NVCC=/usr/local/cuda/bin/nvcc
+
+# IF USING NEW GPUS REMEMBER TO COMMENT OUT THOSE
+# ALSO copy libdarknet.so or libdark.so over to /usr/local/lib
+# ALSO ALSO copy yolo_v2_class.hpp over to /usr/local/include/
 
 ARCH= -gencode arch=compute_30,code=sm_30 \
       -gencode arch=compute_35,code=sm_35 \
@@ -66,7 +71,6 @@ CC=gcc
 endif
 
 CPP=g++ -std=c++11
-NVCC=nvcc
 OPTS=-Ofast
 LDFLAGS= -lm -pthread
 COMMON= -Iinclude/ -I3rdparty/stb/include

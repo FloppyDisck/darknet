@@ -50,11 +50,9 @@ struct bbox_t_container {
 #include <iostream>
 #include <cmath>
 
-#ifdef OPENCV
 #include <opencv2/opencv.hpp>            // C++
 #include <opencv2/highgui/highgui_c.h>   // C
 #include <opencv2/imgproc/imgproc_c.h>   // C
-#endif
 
 extern "C" LIB_API int init(const char *configurationFilename, const char *weightsFilename, int gpu);
 extern "C" LIB_API int detect_image(const char *filename, bbox_t_container &container);
@@ -105,7 +103,6 @@ public:
         return detection_boxes;
     }
 
-#ifdef OPENCV
     std::vector<bbox_t> detect(cv::Mat mat, float thresh = 0.2, bool use_mean = false)
     {
         if(mat.data == NULL)
@@ -177,7 +174,6 @@ private:
         return out;
     }
 
-#endif    // OPENCV
 
 public:
 
@@ -549,8 +545,6 @@ class Tracker_optflow {};
 
 #endif    // defined(TRACK_OPTFLOW) && defined(OPENCV)
 
-
-#ifdef OPENCV
 
 static cv::Scalar obj_id_to_color(int obj_id) {
     int const colors[6][3] = { { 1,0,1 },{ 0,0,1 },{ 0,1,1 },{ 0,1,0 },{ 1,1,0 },{ 1,0,0 } };
@@ -1045,7 +1039,6 @@ public:
 
 };
 // ----------------------------------------------
-#endif    // OPENCV
 
 #endif    // __cplusplus
 
